@@ -1,0 +1,1 @@
+worker: python save_data_auto.py

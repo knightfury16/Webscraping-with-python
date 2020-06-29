@@ -1,0 +1,8 @@
+requests==2.23.0
+schedule==0.6.0
+pytz==2020.1
+beautifulsoup4==4.9.1
+lxml==4.5.1
+python-dateutil==2.8.1
+python-http-client==3.2.1
+urllib3==1.25.7
