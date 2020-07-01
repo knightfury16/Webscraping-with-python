@@ -46,14 +46,16 @@ def get_dist_data():
         # Converting updated time string to datetime UTC+6
         updated_time_dist = time_converter(data['updated_on'])
 
+        to_report['district'] = []
+
         # Searching through data to find Tangail
         for data in data["data"]:
             if data['name'] == "Tangail":
                 # If present count is greater than prev_count send email
                 if data['count'] > data['prev_count']:
                     # Report.Email(data['count'], data['prev_count'], updated_time_dist)
-                    to_report['district'] = []
                     to_report['district'].append({
+                        "flag": "Yes",
                         "name": "Tangail",
                         "count": data['count'],
                         "prev_count": data["prev_count"],
@@ -61,6 +63,13 @@ def get_dist_data():
                     })
                 else:
                     logger.info("No change in data of Tangail.")
+                    to_report['district'].append({
+                        "flag": "No",
+                        "name": "Tangail",
+                        "count": data['count'],
+                        "prev_count": data["prev_count"],
+                        "updated_on": updated_time_dist
+                    })
 
     except Exception as e:
         logger.info("Could not connect to district data...Check internet")

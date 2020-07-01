@@ -33,11 +33,14 @@ class Report():
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login(EMAILL_ADDRESS, EMAIL_PASSWARD)
             subject = 'Report from Python bot'
-            body = f"Positive, last day {int(last_day_pos):,}, total positive {int(tot_pos):,}."
-            body += f"\nDeath, last day {last_day_death}, total death {int(tot_death):,}."
+            body = f"Positive, today {int(last_day_pos):,}, total positive {int(tot_pos):,}."
+            body += f"\nDeath, today {last_day_death}, total death {int(tot_death):,}."
             body += f"\nAs per {updated_time_BD}"
-            body += f"\n\nIn Tangail today's positive {tan_td}, previous day {tan_prev}."
-            body += f"\nIncrease of {int(tan_td)-int(tan_prev)}."
+            if reported_data['district'][0]['flag'] == 'yes':
+                body += f"\n\nIn Tangail today's positive {tan_td}, previous day {tan_prev}."
+                body += f"\nIncrease of {int(tan_td)-int(tan_prev)}."
+            else:
+                body += f"\n\nNo change in Tangail data today, present count {tan_td}"
             body += f"\nAs per {updated_time_dist}"
             msg = f"Subject: {subject}\n\n{body}"
             smtp.sendmail(EMAILL_ADDRESS, 'suhaib16@student.sust.edu', msg)
